@@ -5,6 +5,8 @@ cmake_minimum_required (VERSION 3.8)
 
 project ("SimpleGame" C)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
 find_package(SDL2 REQUIRED)
 find_package(sdl2-image REQUIRED)
 find_package(sdl2-mixer REQUIRED)
@@ -14,11 +16,11 @@ add_executable (SimpleGame   "src/main.c" "src/init.c" "src/draw.c" "src/input.c
 
 target_include_directories(SimpleGame PUBLIC "${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}/include")
 
-target_include_directories(SimpleGame PUBLIC ${SDL2_INCLUDE_DIRS})
-
+target_include_directories(SimpleGame PRIVATE ${SDL2_INCLUDE_DIRS})
 target_link_libraries(SimpleGame PRIVATE SDL2::SDL2 SDL2::SDL2main)
-target_link_libraries(SimpleGame PRIVATE SDL2::SDL2_image)
-target_link_libraries(SimpleGame PUBLIC SDL2::SDL2_mixer) # ensure sdl2-mixer "extensions" are installed for .ogg: https://www.reddit.com/r/cataclysmdda/comments/glxgtb/fix_for_sound_problem_when_compiling_in_windows/
+
+target_link_libraries(SimpleGame PRIVATE ${SDL2_IMAGE_LIBRARIES})
+target_link_libraries(SimpleGame PRIVATE ${SDL2_MIXER_LIBRARIES}) # ensure sdl2-mixer "extensions" are installed for .ogg: https://www.reddit.com/r/cataclysmdda/comments/glxgtb/fix_for_sound_problem_when_compiling_in_windows/
 
 add_custom_target(copy_assets
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_LIST_DIR}/assets ${CMAKE_CURRENT_BINARY_DIR}/assets
