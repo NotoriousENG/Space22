@@ -46,6 +46,23 @@ void initSDL(void)
 	SDL_ShowCursor(0);
 }
 
+void initGame(void)
+{
+	initBackground();
+	
+	initStarfield();
+	
+	initSounds();
+	
+	initFonts();
+	
+	initHighscoreTable();
+	
+	loadMusic("assets/music/Mercury.ogg");
+	
+	playMusic(1);
+}
+
 void cleanup(void)
 {
 	Mix_Quit();

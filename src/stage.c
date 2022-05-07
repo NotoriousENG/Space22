@@ -13,20 +13,15 @@ static void doBullets(void);
 static void drawFighters(void);
 static void drawBullets(void);
 static void spawnEnemies(void);
-static int bulletHitFighter(Entity* b);
+static int bulletHitFighter(Entity *b);
 static void doEnemies(void);
-static void fireAlienBullet(Entity* e);
+static void fireAlienBullet(Entity *e);
 static void clipPlayer(void);
 static void resetStage(void);
-static void drawBackground(void);
-static void initStarfield(void);
-static void drawStarfield(void);
-static void doBackground(void);
-static void doStarfield(void);
 static void drawExplosions(void);
 static void doExplosions(void);
 static void addExplosions(int x, int y, int num);
-static void addDebris(Entity* e);
+static void addDebris(Entity *e);
 static void doDebris(void);
 static void drawDebris(void);
 static void drawHud(void);
@@ -39,13 +34,10 @@ static SDL_Texture* bulletTexture;
 static SDL_Texture* enemyTexture;
 static SDL_Texture* alienBulletTexture;
 static SDL_Texture* playerTexture;
-static SDL_Texture* background;
 static SDL_Texture* explosionTexture;
 static SDL_Texture* pointsTexture;
 static int enemySpawnTimer;
 static int stageResetTimer;
-static int backgroundX;
-static Star stars[MAX_STARS];
 static int highscore;
 
 void initStage(void)
@@ -65,15 +57,20 @@ void initStage(void)
 	enemyTexture = loadTexture("assets/sprites/enemy.png");
 	alienBulletTexture = loadTexture("assets/sprites/alienBullet.png");
 	playerTexture = loadTexture("assets/sprites/player.png");
-	background = loadTexture("assets/sprites/background.png");
 	explosionTexture = loadTexture("assets/sprites/explosion.png");
 	pointsTexture = loadTexture("assets/sprites/points.png");
 
-	loadMusic("assets/music/Mercury.ogg");
-
-	playMusic(1);
-
+	memset(app.keyboard, 0, sizeof(int) * MAX_KEYBOARD_KEYS);
+	
 	resetStage();
+	
+	stage.score = 0;
+	
+	initPlayer();
+	
+	enemySpawnTimer = 0;
+	
+	stageResetTimer = FPS * 3;
 }
 
 static void resetStage(void)
@@ -123,20 +120,11 @@ static void resetStage(void)
 	}
 
 	// clears stage and reset linked list tails
-	memset(&stage, 0, sizeof(Stage));
 	stage.fighterTail = &stage.fighterHead;
 	stage.bulletTail = &stage.bulletHead;
 	stage.explosionTail = &stage.explosionHead;
 	stage.debrisTail = &stage.debrisHead;
 	stage.pointsTail = &stage.pointsHead;
-
-	initPlayer();
-
-	initStarfield();
-
-	enemySpawnTimer = 0;
-
-	stageResetTimer = FPS * 2;
 }
 
 static void initPlayer()
@@ -153,18 +141,6 @@ static void initPlayer()
 	player->y = 100;
 	player->texture = playerTexture;
 	SDL_QueryTexture(player->texture, NULL, NULL, &player->w, &player->h);
-}
-
-static void initStarfield(void)
-{
-	int i;
-
-	for (i = 0; i < MAX_STARS; i++)
-	{
-		stars[i].x = rand() % SCREEN_WIDTH;
-		stars[i].y = rand() % SCREEN_HEIGHT;
-		stars[i].speed = 1 + rand() % 8;
-	}
 }
 
 static void logic(void)
@@ -193,32 +169,9 @@ static void logic(void)
 
 	if (player == NULL && --stageResetTimer <= 0)
 	{
-		resetStage();
-	}
-}
-
-// loop background across the screen
-static void doBackground(void)
-{
-	if (--backgroundX < -SCREEN_WIDTH)
-	{
-		backgroundX = 0;
-	}
-}
-
-// loop stars across the screen
-static void doStarfield(void)
-{
-	int i;
-
-	for (i = 0; i < MAX_STARS; i++)
-	{
-		stars[i].x -= stars[i].speed;
-
-		if (stars[i].x < 0)
-		{
-			stars[i].x = SCREEN_WIDTH + stars[i].x;
-		}
+		addHighscore(stage.score);
+		
+		initHighscores();
 	}
 }
 
@@ -758,38 +711,6 @@ static void drawBullets(void)
 	for (b = stage.bulletHead.next; b != NULL; b = b->next)
 	{
 		blit(b->texture, b->x, b->y);
-	}
-}
-
-// draw backround looped to cover the screen
-static void drawBackground(void)
-{
-	SDL_Rect dest;
-	int x;
-
-	for (x = backgroundX; x < SCREEN_WIDTH; x += SCREEN_WIDTH)
-	{
-		dest.x = x;
-		dest.y = 0;
-		dest.w = SCREEN_WIDTH;
-		dest.h = SCREEN_HEIGHT;
-
-		SDL_RenderCopy(app.renderer, background, NULL, &dest);
-	}
-}
-
-// draw each stars, faster stars are brighter
-static void drawStarfield(void)
-{
-	int i, c;
-
-	for (i = 0; i < MAX_STARS; i++)
-	{
-		c = 32 * stars[i].speed;
-
-		SDL_SetRenderDrawColor(app.renderer, c, c, c, 255);
-
-		SDL_RenderDrawLine(app.renderer, stars[i].x, stars[i].y, stars[i].x + 3, stars[i].y);
 	}
 }
 

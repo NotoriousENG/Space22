@@ -12,7 +12,7 @@ find_package(sdl2-image REQUIRED)
 find_package(sdl2-mixer REQUIRED)
 
 # Add source to this project's executable.
-add_executable (SimpleGame   "src/main.c" "src/init.c" "src/draw.c" "src/input.c"  "src/stage.c" "src/sound.c" "src/text.c")
+add_executable (SimpleGame   "src/main.c" "src/init.c" "src/draw.c" "src/input.c"  "src/stage.c" "src/sound.c" "src/text.c" "src/highscores.c" "src/background.c")
 
 target_include_directories(SimpleGame PUBLIC "${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}/include")
 
