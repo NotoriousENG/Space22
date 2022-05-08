@@ -15,7 +15,7 @@ extern void doBackground(void);
 extern void doStarfield(void);
 extern void drawBackground(void);
 extern void drawStarfield(void);
-extern void drawText(int x, int y, int r, int g, int b, char *format, ...);
+extern void drawText(int x, int y, int r, int g, int b, int align, char *format, ...);
 extern void initHighscores(void);
 extern SDL_Texture *loadTexture(char *filename);
 extern void playSound(int id, int channel);

@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
 
 	initSDL();
 
+	SDL_StopTextInput();
+
 	atexit(cleanup);
 
 	initGame();

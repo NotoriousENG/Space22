@@ -48,6 +48,8 @@ void initSDL(void)
 
 void initGame(void)
 {
+	read_highscores();
+
 	initBackground();
 	
 	initStarfield();
@@ -56,8 +58,6 @@ void initGame(void)
 	
 	initFonts();
 	
-	initHighscoreTable();
-	
 	loadMusic("assets/music/Mercury.ogg");
 	
 	playMusic(1);
@@ -65,6 +65,8 @@ void initGame(void)
 
 void cleanup(void)
 {
+	write_highscores();
+
 	Mix_Quit();
 
 	IMG_Quit();

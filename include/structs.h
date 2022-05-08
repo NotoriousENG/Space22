@@ -24,6 +24,7 @@ typedef struct {
 	Delegate delegate;
 	int keyboard[MAX_KEYBOARD_KEYS];
 	Texture textureHead, *textureTail;
+	char inputText[MAX_LINE_LENGTH];
 } App;
 
 
@@ -77,6 +78,7 @@ typedef struct {
 } Star;
 
 typedef struct {
+	char name[MAX_SCORE_NAME_LENGTH];
 	int recent;
 	int score;
 } Highscore;

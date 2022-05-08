@@ -7,6 +7,7 @@
 #define SCREEN_WIDTH           1280
 #define SCREEN_HEIGHT          720
 
+#define MAX_SCORE_NAME_LENGTH    16
 #define MAX_NAME_LENGTH        64
 #define MAX_LINE_LENGTH        1024
 
@@ -24,8 +25,6 @@
 #define MAX_STARS              500
 
 #define MAX_SND_CHANNELS       8
-
-#define MAX_LINE_LENGTH		   1024
 
 #define NUM_HIGHSCORES         8
 
@@ -45,4 +44,11 @@ enum
 	SND_ALIEN_DIE,
 	SND_POINTS,
 	SND_MAX
+};
+
+enum
+{
+	TEXT_LEFT,
+	TEXT_CENTER,
+	TEXT_RIGHT
 };
