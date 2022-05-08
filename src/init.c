@@ -58,7 +58,7 @@ void initGame(void)
 	
 	initFonts();
 	
-	loadMusic("assets/music/Mercury.ogg");
+	loadMusic("assets/music/heavens_forbid_boost.ogg");
 	
 	playMusic(1);
 }

@@ -4,8 +4,8 @@ static void logic(void);
 static void draw(void);
 static void drawLogo(void);
 
-static SDL_Texture *sdl2Texture;
-static SDL_Texture *shooterTexture;
+static SDL_Texture *shootyTexture;
+static SDL_Texture *shootTexture;
 static int reveal = 0;
 static int timeout;
 
@@ -16,8 +16,8 @@ void initTitle(void)
 	
 	memset(app.keyboard, 0, sizeof(int) * MAX_KEYBOARD_KEYS);
 	
-	sdl2Texture = loadTexture("assets/sprites/sdl2.png");
-	shooterTexture = loadTexture("assets/sprites/shooter.png");
+	shootyTexture = loadTexture("assets/sprites/shooty.png");
+	shootTexture = loadTexture("assets/sprites/shoot.png");
 	
 	timeout = FPS * 5;
 }
@@ -65,15 +65,15 @@ static void drawLogo(void)
 	r.x = 0;
 	r.y = 0;
 	
-	SDL_QueryTexture(sdl2Texture, NULL, NULL, &r.w, &r.h);
+	SDL_QueryTexture(shootyTexture, NULL, NULL, &r.w, &r.h);
 	
 	r.h = MIN(reveal, r.h);
 	
-	blitRect(sdl2Texture, &r, (SCREEN_WIDTH / 2) - (r.w / 2), 100);
+	blitRect(shootyTexture, &r, (SCREEN_WIDTH / 2) - (r.w / 2), 100);
 	
-	SDL_QueryTexture(shooterTexture, NULL, NULL, &r.w, &r.h);
+	SDL_QueryTexture(shootTexture, NULL, NULL, &r.w, &r.h);
 	
 	r.h = MIN(reveal, r.h);
 	
-	blitRect(shooterTexture, &r, (SCREEN_WIDTH / 2) - (r.w / 2), 250);
+	blitRect(shootTexture, &r, (SCREEN_WIDTH / 2) - (r.w / 2), 350);
 }

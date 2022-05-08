@@ -6,7 +6,7 @@ SDL_Texture *background;
 
 void initBackground(void)
 {
-	background = loadTexture("assets/sprites/background.png");
+	background = loadTexture("assets/sprites/bg.png");
 
 	backgroundX = 0;
 }

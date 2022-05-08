@@ -58,7 +58,7 @@ void initStage(void)
 	alienBulletTexture = loadTexture("assets/sprites/alienBullet.png");
 	playerTexture = loadTexture("assets/sprites/player.png");
 	explosionTexture = loadTexture("assets/sprites/explosion.png");
-	pointsTexture = loadTexture("assets/sprites/points.png");
+	pointsTexture = loadTexture("assets/sprites/star.png");
 
 	memset(app.keyboard, 0, sizeof(int) * MAX_KEYBOARD_KEYS);
 	
