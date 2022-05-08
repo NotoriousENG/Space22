@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
 	initGame();
 
-	initHighscores();
+	initTitle();
 
 	then = SDL_GetTicks();
 

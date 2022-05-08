@@ -221,10 +221,16 @@ static void doEnemies(void)
 
 	for (e = stage.fighterHead.next; e != NULL; e = e->next)
 	{
-		if (e != player && player != NULL && --e->reload <= 0)
+		if (e != player)
 		{
-			fireAlienBullet(e);
-			playSound(SND_ALIEN_FIRE, CH_ALIEN_FIRE);
+			e->y = MIN(MAX(e->y, 0), SCREEN_HEIGHT - e->h);
+			
+			if (player != NULL && --e->reload <= 0)
+			{
+				fireAlienBullet(e);
+				
+				playSound(SND_ALIEN_FIRE, CH_ALIEN_FIRE);
+			}
 		}
 	}
 }
@@ -398,15 +404,20 @@ static void spawnEnemies(void)
 		stage.fighterTail->next = enemy;
 		stage.fighterTail = enemy;
 
-		enemy->side = SIDE_ALIEN;
 		enemy->x = SCREEN_WIDTH;
 		enemy->y = rand() % SCREEN_HEIGHT;
-		enemy->health = 1;
+		
 		enemy->texture = enemyTexture;
-		enemy->reload = FPS * (1 + (rand() % 3)); // wait for a few seconds after creation to fire
 		SDL_QueryTexture(enemy->texture, NULL, NULL, &enemy->w, &enemy->h);
 
 		enemy->dx = -(2 + (rand() % 4));
+		enemy->dy = -100 + (rand() % 200);
+		enemy->dy /= 100;
+
+		enemy->side = SIDE_ALIEN;
+		enemy->health = 1;
+
+		enemy->reload = FPS * (1 + (rand() % 3)); // wait for a few seconds after creation to fire
 
 		enemySpawnTimer = 30 + (rand() % FPS);
 	}
@@ -686,11 +697,15 @@ static void draw(void)
 
 static void drawPointsPods(void)
 {
-	Entity* e;
-
-	for (e = stage.pointsHead.next; e != NULL; e = e->next)
+	Entity *e;
+	
+	for (e = stage.pointsHead.next ; e != NULL ; e = e->next)
 	{
-		blit(e->texture, e->x, e->y);
+		// blink when about to dissapear
+		if (e->health > (FPS * 2) || e->health % 12 < 6)
+		{
+			blit(e->texture, e->x, e->y);
+		}
 	}
 }
 

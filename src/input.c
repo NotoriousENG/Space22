@@ -14,6 +14,11 @@ void doKeyUp(SDL_KeyboardEvent* event)
 
 void doKeyDown(SDL_KeyboardEvent* event)
 {
+	if (event->keysym.scancode == SDL_SCANCODE_ESCAPE)
+	{
+		exit(0);
+	}
+
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
 	{
 		app.keyboard[event->keysym.scancode] = 1;

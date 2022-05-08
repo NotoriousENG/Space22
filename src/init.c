@@ -69,11 +69,11 @@ void cleanup(void)
 
 	Mix_Quit();
 
-	IMG_Quit();
-
 	SDL_DestroyRenderer(app.renderer);
 
 	SDL_DestroyWindow(app.window);
+
+	IMG_Quit();
 
 	SDL_Quit();
 }
