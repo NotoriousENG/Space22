@@ -28,6 +28,8 @@
 
 #define NUM_HIGHSCORES         8
 
+#define HIGHSCORES_BIN_PATH	   "assets/highscores.bin"
+
 enum
 {
 	CH_ANY = -1,

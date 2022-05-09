@@ -14,10 +14,12 @@ void doKeyUp(SDL_KeyboardEvent* event)
 
 void doKeyDown(SDL_KeyboardEvent* event)
 {
+#ifndef EMSCRIPTEN
 	if (event->keysym.scancode == SDL_SCANCODE_ESCAPE)
 	{
 		exit(0);
 	}
+#endif
 
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
 	{

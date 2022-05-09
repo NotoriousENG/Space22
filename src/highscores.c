@@ -6,6 +6,7 @@ static int highscoreComparator(const void *a, const void *b);
 static void drawHighscores(void);
 static void doNameInput(void);
 static void drawNameInput(void);
+void write_highscores();
 
 static Highscore *newHighscore;
 static int cursorBlink;
@@ -106,6 +107,8 @@ static void doNameInput(void)
 		SDL_StopTextInput();
 		
 		newHighscore = NULL;
+
+		write_highscores();
 	}
 }
 
@@ -229,7 +232,7 @@ void write_highscores()
 {
     FILE *fptr;
 
-    if ((fptr = fopen("highscores.bin", "wb")) == NULL)
+    if ((fptr = fopen(HIGHSCORES_BIN_PATH, "wb")) == NULL)
     {
         printf("Error! opening file");
 
@@ -245,7 +248,7 @@ void read_highscores()
 {
     FILE *fptr;
 
-    if ((fptr = fopen("highscores.bin", "rb")) == NULL)
+    if ((fptr = fopen(HIGHSCORES_BIN_PATH, "rb")) == NULL)
     {
         printf("Error! opening file");
 

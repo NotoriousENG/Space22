@@ -1,11 +1,19 @@
+#ifdef EMSCRIPTEN
+	#include <emscripten.h>
+	#include <emscripten/html5.h>
+#endif
+
 #include "main.h"
 
-static void capFrameRate(long* then, float* remainder);
+static void capFrameRate(long *then, float *remainder);
+void main_loop();
 
-int main(int argc, char* argv[])
+long _then;
+float _remainder;
+
+int main(int argc, char *argv[])
 {
-	long then;
-	float remainder;
+	
 
 	memset(&app, 0, sizeof(App));
 	app.textureTail = &app.textureHead;
@@ -20,29 +28,38 @@ int main(int argc, char* argv[])
 
 	initTitle();
 
-	then = SDL_GetTicks();
+	_then = SDL_GetTicks();
 
-	remainder = 0;
+	_remainder = 0;
 
+#ifdef EMSCRIPTEN
+emscripten_set_main_loop(main_loop, 0, 1);
+#else
 	while (1)
 	{
-		prepareScene();
-
-		doInput();
-
-		app.delegate.logic();
-
-		app.delegate.draw();
-
-		presentScene();
-
-		capFrameRate(&then, &remainder);
+		main_loop();
 	}
+#endif
 
 	return 0;
 }
 
-static void capFrameRate(long* then, float* remainder)
+void main_loop()
+{
+	prepareScene();
+
+	doInput();
+
+	app.delegate.logic();
+
+	app.delegate.draw();
+
+	presentScene();
+
+	capFrameRate(&_then, &_remainder);
+}
+
+static void capFrameRate(long *then, float *remainder)
 {
 	long wait, frameTime;
 
