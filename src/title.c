@@ -1,9 +1,5 @@
 #include "title.h"
 
-static void logic(void);
-static void draw(void);
-static void drawLogo(void);
-
 static SDL_Texture *shootyTexture;
 static SDL_Texture *shootTexture;
 static int reveal = 0;

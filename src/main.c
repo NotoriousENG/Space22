@@ -5,9 +5,6 @@
 
 #include "main.h"
 
-static void capFrameRate(long *then, float *remainder);
-void main_loop();
-
 long _then;
 float _remainder;
 

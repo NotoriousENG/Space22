@@ -1,13 +1,5 @@
 #include "highscores.h"
 
-static void logic(void);
-static void draw(void);
-static int highscoreComparator(const void *a, const void *b);
-static void drawHighscores(void);
-static void doNameInput(void);
-static void drawNameInput(void);
-void write_highscores();
-
 static Highscore *newHighscore;
 static int cursorBlink;
 static int timeout;
