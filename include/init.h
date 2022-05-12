@@ -8,14 +8,8 @@
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_mixer.h"
 
-extern void initBackground(void);
-extern void initFonts(void);
-extern void initHighscoreTable(void);
-extern void initSounds(void);
-extern void initStarfield(void);
-extern void loadMusic(char *filename);
-extern void playMusic(int loop);
-extern void read_highscores();
-extern void write_highscores();
+void initSDL(void);
+void initGame(void);
+void cleanup(void);
 
 extern App app;

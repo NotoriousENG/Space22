@@ -15,4 +15,9 @@ extern void initHighscores(void);
 extern void initStage(void);
 extern SDL_Texture *loadTexture(char *filename);
 
+void initTitle(void);
+static void logic(void);
+static void draw(void);
+static void drawLogo(void);
+
 extern App app;

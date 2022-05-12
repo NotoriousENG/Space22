@@ -14,14 +14,11 @@
 #include "text.h"
 #include "highscores.h"
 #include "init.h"
+#include "input.h"
 
-extern void cleanup(void);
-extern void doInput(void);
-extern void initGame(void);
-extern void initHighscores(void);
-extern void initSDL(void);
-extern void prepareScene(void);
-extern void presentScene(void);
+int main(int argc, char *argv[]);
+void main_loop();
+static void capFrameRate(long *then, float *remainder);
 
 App app;
 Stage stage;
