@@ -1,6 +1,6 @@
 #ifdef EMSCRIPTEN
-	#include <emscripten.h>
-	#include <emscripten/html5.h>
+#include <emscripten.h>
+#include <emscripten/html5.h>
 #endif
 
 #include "main.h"
@@ -10,8 +10,6 @@ float _remainder;
 
 int main(int argc, char *argv[])
 {
-	
-
 	memset(&app, 0, sizeof(App));
 	app.textureTail = &app.textureHead;
 
@@ -30,7 +28,7 @@ int main(int argc, char *argv[])
 	_remainder = 0;
 
 #ifdef EMSCRIPTEN
-emscripten_set_main_loop(main_loop, 0, 1);
+	emscripten_set_main_loop(main_loop, 0, 1);
 #else
 	while (1)
 	{
