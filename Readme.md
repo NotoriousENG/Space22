@@ -9,6 +9,7 @@ You can build for multiple platforms using CMake, you will need the following in
 * SDL2
 * SDL2-image
 * SDL2-mixer
+* libvorbis
 ### Windows
 * You can install dependencies using [vcpkg](https://github.com/microsoft/vcpkg)
     * for SDL_Mixer use ./vcpkg.exe install sdl2-mixer[libvorbis]
