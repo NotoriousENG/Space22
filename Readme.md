@@ -1,8 +1,8 @@
 # Shooty Shoot
 A simple space shooter made in C using SDL based on [Parallel Realities's tutorials](https://www.parallelrealities.co.uk/tutorials/shooter/shooter1.php) with multi-platform build support.
 
-## Binary files
-Will be linked here after release
+## Playing
+[Play/Download on itch.io](https://notoriouseng.itch.io/shooty-shoot)
 
 ## Build for Multiple Platforms
 You can build for multiple platforms using CMake, you will need the following installed to link for your platform of choice
